@@ -3,10 +3,10 @@ name: Build and deploy a container to an Azure Web App
 env:
   AZURE_WEBAPP_NAME: "ibm-webapp"
   IMAGE_REGISTRY: "ghcr.io"
-  ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}  
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}  
 
 on:
   push:
@@ -82,11 +82,11 @@ jobs:
 
       - name: Terraform Init
         run: |
-          terraform init \
-          -backend-config=subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }} \
-          -backend-config=tenant_id=${{ secrets.AZURE_AD_TENANT_ID }} \
-          -backend-config=client_id=${{ secrets.AZURE_AD_CLIENT_ID }} \
-          -backend-config=client_secret=${{ secrets.AZURE_AD_CLIENT_SECRET }}
+          terraform init
+        # -backend-config=subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }} \
+        # -backend-config=tenant_id=${{ secrets.AZURE_TENANT_ID }} \
+        # -backend-config=client_id=${{ secrets.AZURE_CLIENT_ID }} \
+        # -backend-config=client_secret=${{ secrets.AZURE_CLIENT_SECRET }}
         # -backend-config=storage_account_name=$TerraformBackendStorageAccount \
         # -backend-config=container_name=$TerraformBackendStorageContainer \
         # -backend-config=resource_group_name=$TerraformBackendResourceGroup \
