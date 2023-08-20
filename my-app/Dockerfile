@@ -1,21 +1,22 @@
-FROM node:19.5.0-alpine AS builderr
+FROM node:19.5.0-alpine AS builder
 
 WORKDIR /app
 
 COPY package*.json /.
-RUN npm install
 RUN npm ci
 COPY . .
 RUN npm run build
+RUN ls; pwd
 
 FROM node:19.5.0-alpine
 
 WORKDIR /app
 
-COPY --from=builderr /app/package.json ./
-COPY --from=builderr /app/.next ./.next
-COPY --from=builderr /app/public ./public
-COPY --from=builderr /app/node_modules ./node_modules
+
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
 
 ENV NODE_ENV=production
 
