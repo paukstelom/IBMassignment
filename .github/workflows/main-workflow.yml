@@ -58,5 +58,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
+          tags: ghcr.io/${{ github.repository }}:latest
           file: ./my-app/Dockerfile
