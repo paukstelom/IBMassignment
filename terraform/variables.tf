@@ -33,6 +33,7 @@ variable "image_registry_username" {
 
 variable "image_registry_password" {
   type        = string
+  sensitive = true
   description = "Docker registry password"
 }
 

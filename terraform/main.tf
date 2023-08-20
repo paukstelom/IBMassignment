@@ -12,6 +12,7 @@ resource "azurerm_service_plan" "main" {
   os_type             = "Linux"
   sku_name            = "F1"
 
+
   depends_on = [azurerm_resource_group.main]
   tags       = var.tags
 }
@@ -24,7 +25,21 @@ resource "azurerm_linux_web_app" "main" {
   https_only          = true
 
   site_config {
+    # Set to false due to using Free tier service plan
+    always_on = false
 
+    # Specified image and registry credentials
+    application_stack {
+      docker_image_name        = var.image_name
+      docker_registry_url      = var.image_registry_url
+      docker_registry_username = var.image_registry_password
+      docker_registry_password = var.image_registry_password
+    }
+  }
+
+  #  Makes a listen on port 3000 as our app is served on this port
+  app_settings = {
+    "WEBSITES_PORT" = "3000"
   }
 
   depends_on = [azurerm_service_plan.main]
@@ -32,19 +47,3 @@ resource "azurerm_linux_web_app" "main" {
 }
 
 
-resource "azurerm_app_service_source_control" "main" {
-  app_id = azurerm_linux_web_app.main.id
-
-  github_action_configuration {
-    container_configuration {
-      image_name        = var.image_name
-      registry_url      = var.image_registry_url
-      registry_username = var.image_registry_username
-      registry_password = var.image_registry_password
-
-    }
-  }
-
-  depends_on = [azurerm_linux_web_app.main]
-
-}

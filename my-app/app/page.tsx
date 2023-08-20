@@ -32,6 +32,8 @@ export default function Home() {
         init()
     }, [])
 
+
+
     return (
         <main className={styles.main}>
             <div className={styles.description}>
@@ -67,6 +69,12 @@ export default function Home() {
 
             <div className={styles.grid}>
                 <p>
+                    <code>
+                        App version: <b>1.0.0</b>
+                    </code>
+                </p>
+                <p>
+         
                     <code>
                     {' '}
                     {totalVisitors !== 0 ? (

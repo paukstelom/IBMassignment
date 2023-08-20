@@ -1,33 +1,13 @@
-# This workflow will build and push a Docker container to an Azure Web App when a commit is pushed to your default branch.
-#
-# This workflow assumes you have already created the target Azure App Service web app.
-# For instructions see https://docs.microsoft.com/en-us/azure/app-service/quickstart-custom-container?tabs=dotnet&pivots=container-linux
-#
-# To configure this workflow:
-#
-# 1. Download the Publish Profile for your Azure Web App. You can download this file from the Overview page of your Web App in the Azure Portal.
-#    For more information: https://docs.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=applevel#generate-deployment-credentials
-#
-# 2. Create a secret in your repository named AZURE_WEBAPP_PUBLISH_PROFILE, paste the publish profile contents as the value of the secret.
-#    For instructions on obtaining the publish profile see: https://docs.microsoft.com/azure/app-service/deploy-github-actions#configure-the-github-secret
-#
-# 3. Create a GitHub Personal access token with "repo" and "read:packages" permissions.
-#
-# 4. Create three app settings on your Azure Web app:
-#       DOCKER_REGISTRY_SERVER_URL: Set this to "https://ghcr.io"
-#       DOCKER_REGISTRY_SERVER_USERNAME: Set this to the GitHub username or organization that owns the repository
-#       DOCKER_REGISTRY_SERVER_PASSWORD: Set this to the value of your PAT token from the previous step
-#
-# 5. Change the value for the AZURE_WEBAPP_NAME.
-#
-# For more information on GitHub Actions for Azure: https://github.com/Azure/Actions
-# For more information on the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# For more samples to get started with GitHub Action workflows to deploy to Azure: https://github.com/Azure/actions-workflow-samples
-
 name: Build and deploy a container to an Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: IBM-APP  # set this to the name of your Azure Web App
+  AZURE_WEBAPP_NAME: "WEBAPP"
+  ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+
+  
 
 on:
   push:
@@ -40,7 +20,11 @@ permissions:
 
 jobs:
   build:
+    name: Building and pushing container image
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./my-app
 
     steps:
       - uses: actions/checkout@v3
@@ -58,10 +42,46 @@ jobs:
       - name: Lowercase the repo name and username
         run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
+      - name: Get tag from VERSION file
+        id: get_tag
+        run: echo "::set-output name=tag::$(cat .VERSION)"
+
+      - name: Create image name
+        id : image_name
+        run: echo "::set-output name=image_name::ghcr.io/${{ env.REPO }}/${{ env.AZURE_WEBAPP_NAME }}:${{ steps.get_tag.outputs.tag }}"
+
       - name: Build and push container image to registry
         uses: docker/build-push-action@v4
         with:
           push: true
-          context: ./my-app
-          tags: ghcr.io/${{ env.REPO }}:latest
-          file: ./my-app/Dockerfile
+          tags: ${{ steps.image_name.outputs.image_name }}
+          file: ./Dockerfile
+
+  # terraform:
+  #   name: Deploying Azure Web App instance
+  #   runs-on: ubuntu-latest
+  #   # environment: production
+
+  #   defaults:
+  #     run:
+  #       working-directory: ./terraform
+  #       shell: bash
+
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - name: Setup Terraform
+  #       uses: hashicorp/setup-terraform@v1
+  #       with:
+  #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+  #     - name: Terraform Init
+  #       run: terraform init
+
+  #     - name: Terraform Plan
+  #       run: terraform plan -var=
+
+  #     - name: Terraform Apply
+  #       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+  #       run: terraform apply -auto-approve -input=false
