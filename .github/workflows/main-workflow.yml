@@ -41,7 +41,7 @@ jobs:
         run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
       - name: Get tag from VERSION file
-        run: echo "IMAGE_TAG=$(cat VERSION)" >>${GITHUB_ENV}"
+        run: echo "IMAGE_TAG=$(cat VERSION)" >>${GITHUB_ENV}
 
       - name: Create image name
         run: echo "IMAGE_NAME=ghcr.io/${{ env.REPO }}/${{ env.AZURE_WEBAPP_NAME }}:${{ env.IMAGE_TAG }}" >>${GITHUB_ENV}
