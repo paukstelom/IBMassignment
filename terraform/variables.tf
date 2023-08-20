@@ -15,3 +15,34 @@ variable "location" {
   type        = string
   description = "Resources location in Azure"
 }
+
+variable "repo_url" {
+  type        = string
+  description = "Git repository URL"
+}
+
+variable "branch" {
+  type        = string
+  description = "Git repository branch"
+}
+
+variable "image_registry_url" {
+  type        = string
+  description = "Docker registry URL"
+}
+
+variable "image_name" {
+  type        = string
+  description = "Docker image name"
+}
+
+variable "image_registry_username" {
+  type        = string
+  description = "Docker registry username"
+}
+
+variable "image_registry_password" {
+  type        = string
+  description = "Docker registry password"
+}
+

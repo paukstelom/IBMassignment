@@ -6,18 +6,45 @@ resource "azurerm_resource_group" "main" {
 }
 
 resource "azurerm_service_plan" "main" {
-  name                = "example"
+  name                = "${var.prefix}-SERVICEPLAN"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   os_type             = "Linux"
-  sku_name            = "P1v2"
+  sku_name            = "F1"
+
+  depends_on = [azurerm_resource_group.main]
+  tags       = var.tags
 }
 
 resource "azurerm_linux_web_app" "main" {
-  name                = "example"
+  name                = "${var.prefix}-WEBAPP"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_service_plan.main.location
   service_plan_id     = azurerm_service_plan.main.id
+  https_only          = true
 
-  site_config {}
+  site_config {
+
+  }
+
+  depends_on = [azurerm_service_plan.main]
+  tags       = var.tags
+}
+
+resource "azurerm_app_service_source_control" "main" {
+  app_id = azurerm_linux_web_app.main.id
+  # repo_url = var.repo_url
+  # branch   = var.branch
+
+  github_action_configuration {
+    container_configuration {
+      image_name = var.image_name
+      registry_url = var.image_registry_url
+
+    }
+    generate_workflow_file = true
+  }
+
+  depends_on = [azurerm_linux_web_app.main]
+
 }
