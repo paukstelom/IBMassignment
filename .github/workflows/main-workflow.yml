@@ -50,8 +50,9 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
+          context: ./my-app
           tags: ${{ env.IMAGE_NAME }}
-          file: Dockerfile
+          file: ./my-app/Dockerfile
 
   # terraform:
   #   name: Deploying Azure Web App instance
