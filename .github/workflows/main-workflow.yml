@@ -3,10 +3,6 @@ name: Build and deploy a container to an Azure Web App
 env:
   AZURE_WEBAPP_NAME: "ibm-webapp"
   IMAGE_REGISTRY: "ghcr.io"
-  ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}  
 
 on:
   push:
@@ -57,9 +53,15 @@ jobs:
 
   terraform:
     name: Deploying Azure Web App instance
-    # environment: production
+    environment: production
     needs: build
     runs-on: ubuntu-latest
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}  
+
     # env:
     # #this is needed since we are running terraform with read-only permissions
     #   ARM_SKIP_PROVIDER_REGISTRATION: true
@@ -77,8 +79,8 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
-        # with:
-        #   terraform_wrapper: false
+        with:
+          terraform_wrapper: false
 
       - name: Terraform Init
         run: terraform init
