@@ -1,12 +1,12 @@
-FROM node:16-alpine AS builder
+FROM node:19.5.0-alpine AS builder
 
 WORKDIR /app
 COPY package*.json ./
-RUN NODE_ENV=development npm ci
+RUN npm ci; pwd; ls
 COPY . .
 RUN npm run build
 
-FROM node:16-alpine
+FROM node:19.5.0-alpine
 
 WORKDIR /app
 
