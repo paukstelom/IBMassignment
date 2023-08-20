@@ -16,16 +16,6 @@ variable "location" {
   description = "Resources location in Azure"
 }
 
-variable "repo_url" {
-  type        = string
-  description = "Git repository URL"
-}
-
-variable "branch" {
-  type        = string
-  description = "Git repository branch"
-}
-
 variable "image_registry_url" {
   type        = string
   description = "Docker registry URL"

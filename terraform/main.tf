@@ -31,18 +31,18 @@ resource "azurerm_linux_web_app" "main" {
   tags       = var.tags
 }
 
+
 resource "azurerm_app_service_source_control" "main" {
   app_id = azurerm_linux_web_app.main.id
-  # repo_url = var.repo_url
-  # branch   = var.branch
 
   github_action_configuration {
     container_configuration {
-      image_name = var.image_name
-      registry_url = var.image_registry_url
+      image_name        = var.image_name
+      registry_url      = var.image_registry_url
+      registry_username = var.image_registry_username
+      registry_password = var.image_registry_password
 
     }
-    generate_workflow_file = true
   }
 
   depends_on = [azurerm_linux_web_app.main]
