@@ -1,9 +1,8 @@
 FROM node:19.5.0-alpine AS builder
 
 WORKDIR /app
-RUN npm install -g npm@9.8.1
 COPY package*.json ./
-RUN npm ci
+RUN npm ci /app
 COPY . .
 RUN npm run build
 
