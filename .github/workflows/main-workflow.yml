@@ -1,13 +1,11 @@
 name: Build and deploy a container to an Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: "WEBAPP"
+  AZURE_WEBAPP_NAME: "ibm-webapp"
   ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
-
-  
+  ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}  
 
 on:
   push:
@@ -43,12 +41,10 @@ jobs:
         run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
       - name: Get tag from VERSION file
-        id: get_tag
-        run: echo "::set-output name=tag::$(cat .VERSION)"
+        run: echo "IMAGE_TAG=$(cat .VERSION)" >>${GITHUB_ENV}"
 
       - name: Create image name
-        id : image_name
-        run: echo "::set-output name=image_name::ghcr.io/${{ env.REPO }}/${{ env.AZURE_WEBAPP_NAME }}:${{ steps.get_tag.outputs.tag }}"
+        run: echo "IMAGE_NAME=ghcr.io/${{ env.REPO }}/${{ env.AZURE_WEBAPP_NAME }}:${{ env.IMAGE_TAG }}" >>${GITHUB_ENV}
 
       - name: Build and push container image to registry
         uses: docker/build-push-action@v4
