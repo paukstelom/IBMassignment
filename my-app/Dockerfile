@@ -1,6 +1,6 @@
 FROM node:19.5.0-alpine AS builder
 
-
+WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
@@ -10,10 +10,10 @@ FROM node:19.5.0-alpine
 
 WORKDIR /app
 
-COPY --from=builder package*.json ./
-COPY --from=builder .next ./.next
-COPY --from=builder public ./public
-COPY --from=builder node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
 
 ENV NODE_ENV=production
 
