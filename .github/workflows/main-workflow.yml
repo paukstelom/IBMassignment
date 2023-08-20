@@ -61,5 +61,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
+          context: ./my-app
           tags: ghcr.io/${{ env.REPO }}:latest
           file: ./my-app/Dockerfile
