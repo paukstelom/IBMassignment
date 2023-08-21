@@ -3,3 +3,7 @@ output "azurerm_linux_web_app_dns" {
 
 }
 
+output "redispassword" {
+    value = azurerm_redis_cache.main.primary_access_key
+    sensitive = true
+  }

@@ -7,9 +7,9 @@ terraform {
   }
   required_version = ">= 1.5.4"
   backend "azurerm" {
-    resource_group_name  = "IBM-ASSIGNMENT-RG-STATE"
-    storage_account_name = "stateaccount"
-    container_name       = "statecontainer"
+    resource_group_name  = "IBM-PROJECT-RG-STATE"
+    storage_account_name = "ibmstateaccount"
+    container_name       = "ibmstatecontainer"
     key                  = "terraform.tfstate"
   }
 }

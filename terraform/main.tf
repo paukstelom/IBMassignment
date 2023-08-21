@@ -13,6 +13,19 @@ resource "azurerm_service_plan" "main" {
   sku_name            = "F1"
 
 
+
+  depends_on = [azurerm_resource_group.main]
+  tags       = var.tags
+}
+
+resource "azurerm_redis_cache" "main" {
+  name                = "${var.prefix}-REDIS"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  sku_name            = "Basic"
+  capacity            = 1
+  family              = "C"
+
   depends_on = [azurerm_resource_group.main]
   tags       = var.tags
 }
@@ -24,22 +37,31 @@ resource "azurerm_linux_web_app" "main" {
   service_plan_id     = azurerm_service_plan.main.id
   https_only          = true
 
+
   site_config {
-    # Set to false due to using Free tier service plan
     always_on = false
 
-    # Specified image and registry credentials
     application_stack {
       docker_image_name        = var.image_name
       docker_registry_url      = var.image_registry_url
       docker_registry_username = var.image_registry_password
       docker_registry_password = var.image_registry_password
     }
+
+
   }
 
-  #  Makes a listen on port 3000 as our app is served on this port
+
+
   app_settings = {
-    "WEBSITES_PORT" = "3000"
+    "WEBSITES_PORT"           = "3000"
+    "REDIS_CONNECTION_STRING" = azurerm_redis_cache.main.primary_connection_string
+    "REDIS_ACCESS_KEY" = azurerm_redis_cache.main.primary_access_key
+
+
+    # "DOCKER_REGISTRY_SERVER_URL" = var.image_registry_url
+    # "DOCKER_REGISTRY_SERVER_USERNAME" = var.image_registry_username
+    # "DOCKER_REGISTRY_SERVER_PASSWORD" = var.image_registry_password
   }
 
   depends_on = [azurerm_service_plan.main]

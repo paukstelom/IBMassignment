@@ -1,9 +1,9 @@
 #!/bin/bash
 
-PREFIX=IBM-ASSIGNMENT
+PREFIX=IBM-PROJECT
 RESOURCE_GROUP_NAME=$PREFIX-RG-STATE
-STORAGE_ACCOUNT_NAME=stateaccount
-CONTAINER_NAME=statecontainer
+STORAGE_ACCOUNT_NAME=ibmstateaccount
+CONTAINER_NAME=ibmstatecontainer
 LOCATION=westeurope
 
 az group create --name $RESOURCE_GROUP_NAME --location $LOCATION

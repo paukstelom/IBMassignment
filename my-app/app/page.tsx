@@ -7,6 +7,7 @@ import styles from './page.module.css'
 export default function Home() {
     const [totalVisitors, setTotalVisitors] = useState(0)
 
+
     const getCurrentIp = async () => {
         const res = await fetch('https://api.ipify.org?format=json')
         const data = await res.json()
