@@ -16,6 +16,7 @@ on:
 permissions:
   contents: read
   packages: write
+  id-token: write
 
 jobs:
   build:
@@ -45,7 +46,6 @@ jobs:
         run: echo "IMAGE_TAG=$(cat VERSION)" >>${GITHUB_ENV}
 
       - name: Create image name
-        id: image_name
         run: echo "IMAGE_NAME=${{ env.REPO }}/${{ env.AZURE_WEBAPP_NAME }}:${{ env.IMAGE_TAG }}" >>${GITHUB_ENV}
 
       - name: Build and push container image to registry
