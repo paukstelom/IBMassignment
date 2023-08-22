@@ -44,7 +44,7 @@ resource "azurerm_linux_web_app" "main" {
     application_stack {
       docker_image_name        = var.image_name
       docker_registry_url      = var.image_registry_url
-      docker_registry_username = var.image_registry_password
+      docker_registry_username = var.image_registry_username
       docker_registry_password = var.image_registry_password
     }
   }
