@@ -1,4 +1,4 @@
-name: Deploy infrastructure
+name: Deploying infrastructure
 
 env:
   AZURE_WEBAPP_NAME: "ibm-webapp"
@@ -16,7 +16,6 @@ on:
 permissions:
   contents: read
   packages: write
-  id-token: write
 
 jobs:
   build:
@@ -39,7 +38,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ github.token }}
+          password: ${{ secrets.IBM_REPO_TOKEN }}
 
       - name: Lowercase the repo name and username
         run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
@@ -121,7 +120,7 @@ jobs:
           terraform apply -auto-approve \
           -var="image_name=${{ needs.build.outputs.image_name }}" \
           -var="image_registry_username=${{ github.actor }}" \
-          -var="image_registry_password=${{ github.token }}" \
+          -var="image_registry_password=${{ secrets.IBM_REPO_TOKEN }}" \
           -var="image_registry_url=https://${{ env.IMAGE_REGISTRY }}" \
           -var="location=${{ env.RESOURCES_LOCATION }}" \
           -var="prefix=${{ env.RESROUCES_PREFIX }}"
