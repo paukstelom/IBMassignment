@@ -86,4 +86,4 @@ jobs:
         with:
           app-name: IBM-PROJECT-WEBAPP
           publish-profile: ${{ steps.getPublishProfile.outputs.PUBLISH_PROFILE }}
-          images: ${{ env.IMAGE_REGISTRY }}/${{ steps.image_name.outputs.IMAGE_NAME }}
+          images: ${{ env.IMAGE_REGISTRY }}/${{ build.steps.image_name.outputs.IMAGE_NAME }}
