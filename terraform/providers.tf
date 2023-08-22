@@ -6,15 +6,14 @@ terraform {
     }
   }
   required_version = ">= 1.5.4"
-  backend "azurerm" {
-    resource_group_name  = "IBM-PROJECT-RG-STATE"
-    storage_account_name = "ibmstateaccount"
-    container_name       = "ibmstatecontainer"
-    key                  = "terraform.tfstate"
-  }
+  # backend "azurerm" {
+  #   resource_group_name  = "IBM-PROJECT-RG-STATE"
+  #   storage_account_name = "ibmstateaccount"
+  #   container_name       = "ibmstatecontainer"
+  #   key                  = "terraform.tfstate"
+  # }
 }
 provider "azurerm" {
   features {}
-
   skip_provider_registration = true
 }

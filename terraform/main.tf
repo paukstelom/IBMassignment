@@ -50,12 +50,12 @@ resource "azurerm_linux_web_app" "main" {
   }
 
   app_settings = {
-    "WEBSITES_PORT"           = "3000"
+    "WEBSITES_PORT" = "3000"
     # "REDIS_HOSTNAME" = azurerm_redis_cache.main.hostname
     # "REDIS_PORT"     = azurerm_redis_cache.main.ssl_port
     # "REDIS_ACCESS_KEY" = azurerm_redis_cache.main.primary_access_key
 
-    "DOCKER_REGISTRY_SERVER_URL" = var.image_registry_url
+    "DOCKER_REGISTRY_SERVER_URL"      = var.image_registry_url
     "DOCKER_REGISTRY_SERVER_USERNAME" = var.image_registry_username
     "DOCKER_REGISTRY_SERVER_PASSWORD" = var.image_registry_password
   }
