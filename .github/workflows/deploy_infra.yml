@@ -116,6 +116,6 @@ jobs:
           -var="image_name=${{ env.IMAGE_NAME }}" \
           -var="image_registry_username=${{ github.actor }}" \
           -var="image_registry_password=${{ github.token }}" \
-          -var="image_registry_url=https://${{ env.IMAGE_REGISTRY }}"
+          -var="image_registry_url=https://${{ env.IMAGE_REGISTRY }}" \
           -var="location=${{ env.RESOURCES_LOCATION }}" \
           -var="prefix=${{ env.RESROUCES_PREFIX }}"
