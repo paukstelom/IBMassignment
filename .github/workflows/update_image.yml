@@ -45,6 +45,7 @@ jobs:
         run: echo "IMAGE_TAG=$(cat VERSION)" >>${GITHUB_ENV}
 
       - name: Create image name
+        id: image_name
         run: echo "IMAGE_NAME=${{ env.REPO }}/${{ env.AZURE_WEBAPP_NAME }}:${{ env.IMAGE_TAG }}" >>${GITHUB_ENV}
 
       - name: Build and push container image to registry
@@ -85,4 +86,4 @@ jobs:
         with:
           app-name: IBM-PROJECT-WEBAPP
           publish-profile: ${{ steps.getPublishProfile.outputs.PUBLISH_PROFILE }}
-          images: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.IMAGE_REGISTRY }}/${{ steps.image_name.outputs.IMAGE_NAME }}
