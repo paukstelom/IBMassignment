@@ -4,7 +4,10 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 
+
+
 export default function Home() {
+    const imageTag = process.env.NEXT_PUBLIC_IMAGE_TAG
     const [totalVisitors, setTotalVisitors] = useState(0)
 
 
@@ -19,6 +22,8 @@ export default function Home() {
             method: 'POST',
             body: JSON.stringify({ ip: await getCurrentIp() }),
         })
+    
+      
         const { uniqueIps } = await response.json()
         return uniqueIps
     }
@@ -71,7 +76,7 @@ export default function Home() {
             <div className={styles.grid}>
                 <p>
                     <code>
-                        App version: <b>1.0.0</b>
+                        {`Image tag: ${imageTag}` }
                     </code>
                 </p>
                 <p>

@@ -5,6 +5,7 @@ const getClient = async () => {
     if (redisClient)
         return redisClient
 
+
     const redisHostname = process.env.REDIS_HOSTNAME
     const redisPort = process.env.REDIS_PORT
     const redisPassword = process.env.REDIS_ACCESS_KEY
