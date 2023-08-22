@@ -5,8 +5,8 @@ env:
   IMAGE_REGISTRY: "ghcr.io"
   RESROUCES_PREFIX: "IBM-PROJET"
   RESOURCES_LOCATION: "westeurope"
-  STORAGE_ACCOUNT_NAME: "ibmstorageaccount"
-  STORAGE_CONTAINER_NAME: "ibmstoragecontainer" 
+  STORAGE_ACCOUNT_NAME: "ibmprojectassignmentstorageaccount"
+  STORAGE_CONTAINER_NAME: "ibmprojectassignmentstoragecontainer" 
 
 on:
   push:
