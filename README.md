@@ -1,9 +1,6 @@
-
-# IBM project 
-
+# IBM project
 
 [![Deploying infrastructure](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_infra.yml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_infra.yml) [![Destroying Infrastructure](https://github.com/paukstelom/IBMassignment/actions/workflows/destroy_infra.yml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/paukstelom/IBMassignment/actions/workflows/destroy_infra.yml) [![Update Image](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_app.yml/badge.svg?branch=deploy_app&event=push)](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_app.yml)
-
 
 IBM project is my solution to a technical assignment provided to me in the second stage of the recruitment process to IBM. This assignment required me to deploy a web page which would show how many unique visitors have visited the page.
 
@@ -11,11 +8,9 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 ![Azure] ![Terraform] ![Actions] ![Git] ![Docker] ![Bash] ![Redis] ![Next.js] ![Github]
 
+# IMPORTANT
 
-# IMPORTANT!
-
-#### Azure Redis Cache resource can take 15-40 minutes to deploy, please give the pipeline up to 40 minutes to deploy. If terraform apply step is running, means its working. In addition to that, the image can take some time to be pulled into the Azure App Service. If website does not load, refresh couple of times to see the app.
-
+#### Azure Redis Cache resource can take 15-40 minutes to deploy, please give the pipeline up to 40 minutes to deploy. If terraform apply step is running, means its working. In addition to that, the image can take some time to be pulled into the Azure App Service. If website does not load, refresh couple of times to see the app
 
 ## Solution and architecture
 
@@ -53,7 +48,7 @@ The web app is a simple Next.js app which stores the unique visitors value in Re
 
 Redis is used to store the unique visitors value. The Redis is deployed as a Azure Cache for Redis service in a seperate resource.
 
-### The connection is configured through terraform:
+### The connection is configured through terraform
 
 * Terraform passess variables to the Azure App Service instace which injects them to the environment.
 
@@ -65,7 +60,7 @@ Redis is used to store the unique visitors value. The Redis is deployed as a Azu
 
 ## Terraform
 
-### Terraform code is split into 2 modules: redis_cache and web_app.
+Terraform code is split into 2 modules: redis_cache and web_app
 
 ```bash
 ├── main.tf
@@ -97,7 +92,7 @@ The infrastructure is deployed on my personal Azure account. To do so:
 
 <img src="./docs/workflow1.png" width="60%"><br>
 
-* Select the workflow you want to run. (Use "Deploy infrastructure" first to deploy infra) 
+* Select the workflow you want to run. (Use "Deploy infrastructure" first to deploy infra)
   
 <img src="./docs/workflow2.png" width="20%"><br>
 
@@ -106,9 +101,7 @@ The infrastructure is deployed on my personal Azure account. To do so:
 <img src="./docs/workflow3.png" width="30%">
 
 The app will deploy and you will be able to access it through the link provided in the terraform output.
-Or you can go straight to https://ibm-project-webapp.azurewebsites.net
-
-
+Or you can go straight to <https://ibm-project-webapp.azurewebsites.net>
 
 ## Forking repo
 
@@ -130,7 +123,6 @@ If you want to fork the repo and use the pipelines yourself, you will have to ad
 
 * IBM_REPO_TOKEN - token for your ghcr.io image repository with read and write permissions
 
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
@@ -143,6 +135,3 @@ If you want to fork the repo and use the pipelines yourself, you will have to ad
 [Bash]: https://img.shields.io/badge/GNU%20Bash-4EAA25?style=for-the-badge&logo=GNU%20Bash&logoColor=white
 [Docker]: https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white
 [Redis]: https://img.shields.io/badge/redis-CC0000.svg?&style=for-the-badge&logo=redis&logoColor=white
-
-
-
