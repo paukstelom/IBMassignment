@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       DESTROY_REMOTE_STATE: 
-        description: 'Do you also want to destroy the remote state?'
+        description: 'Do you also want to destroy the remote state? (true/false)'
         required: true
         default: 'false'
 
@@ -28,7 +28,7 @@ jobs:
       - name: Destroy Infrastructure
         run: |
           az group delete --name ${{ env.RESROUCES_PREFIX }}-RG --yes --no-wait
-          
+
       - name: Destroying remote state
         if: ${{ github.event.inputs.DESTROY_REMOTE_STATE == 'true' }}
         run: |
