@@ -10,7 +10,7 @@ env:
 
 on:
   push:
-    branches: [ "test" ]
+    branches: [ "deploy_infra" ]
   workflow_dispatch:
 
 permissions:
