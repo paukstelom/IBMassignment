@@ -4,8 +4,8 @@ env:
   IMAGE_REGISTRY: "ghcr.io"
   RESROUCES_PREFIX: "IBM-PROJECT"
   RESOURCES_LOCATION: "westeurope"
-  STORAGE_ACCOUNT_NAME: "ibmstorageaccount71"
-  STORAGE_CONTAINER_NAME: "ibmstoragecontainer71" 
+  STORAGE_ACCOUNT_NAME: "au97thhqgfk145ipm832"
+  STORAGE_CONTAINER_NAME: "au97thhqgfk145ipm832" 
 
 on:
   workflow_dispatch:
@@ -85,7 +85,7 @@ jobs:
 
   terraform:
     name: Deploying Infrastructure
-    needs: [build]
+    needs: [build, state]
     runs-on: ubuntu-latest
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
