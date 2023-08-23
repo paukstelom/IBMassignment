@@ -71,14 +71,9 @@ jobs:
         with:
           creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
 
-      - name: Get Publish Profile
-        run: |
-          echo PUBLISH_PROFILE=$(az webapp deployment list-publishing-profiles -g IBM-PROJECT-RG -n IBM-PROJECT-WEBAPP --xml) >>${GITHUB_ENV}
-      
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.RESROUCES_PREFIX }}-WEBAPP
-          publish-profile: ${{ env.PUBLISH_PROFILE }}
           images: ${{ env.IMAGE_REGISTRY }}/${{ needs.build.outputs.image_name }}
