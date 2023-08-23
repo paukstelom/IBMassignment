@@ -7,33 +7,34 @@ resource "azurerm_resource_group" "main" {
 module "web_app" {
   source = "./modules/web_app"
 
-  redis_access_key = module.redis_cache.redis_access_key
-  redis_hostname   = module.redis_cache.redis_hostname
-  redis_port       = module.redis_cache.redis_port
-
-  image_registry_url      = var.image_registry_url
-  image_name              = var.image_name
-  image_registry_username = var.image_registry_username
-  image_registry_password = var.image_registry_password
-
   prefix = var.prefix
-  tags   = var.tags
   resource_group = {
     name     = azurerm_resource_group.main.name
     location = azurerm_resource_group.main.location
   }
+
+  redis = module.redis_cache.redis
+  registry = {
+    image_name = var.image_name
+    url        = var.image_registry_url
+    username   = var.image_registry_username
+    password   = var.image_registry_password
+  }
+
   depends_on = [azurerm_resource_group.main, module.redis_cache]
+  tags       = var.tags
 }
 
 module "redis_cache" {
   source = "./modules/redis_cache"
 
   prefix = var.prefix
-  tags   = var.tags
   resource_group = {
     name     = azurerm_resource_group.main.name
     location = azurerm_resource_group.main.location
   }
-  depends_on = [azurerm_resource_group.main]  
+
+  depends_on = [azurerm_resource_group.main]
+  tags       = var.tags
 }
-  
+

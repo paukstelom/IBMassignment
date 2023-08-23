@@ -29,6 +29,26 @@ The web app is a simple Next.js app which stores the unique visitors value in Re
 
 
 
+## Terraform
+
+The terraform 
+
+```bash
+├── main.tf
+├── modules
+│   ├── redis_cache
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   └── web_app
+│       ├── main.tf
+│       ├── outputs.tf
+│       └── variables.tf
+├── outputs.tf
+├── providers.tf
+├── terraform.tfvars
+└── variables.tf
+```
 ## Getting started
 
 ## Secrets

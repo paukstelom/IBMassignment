@@ -18,39 +18,23 @@ variable "resource_group" {
   })
 }
 
-variable "image_registry_url" {
-  type        = string
-  description = "Docker registry URL"
+variable "registry" {
+  type = object({
+    image_name = string
+    url        = string
+    username   = string
+    password   = string
+  })
+  sensitive   = false
+  description = "Image registry details"
 }
 
-variable "image_name" {
-  type        = string
-  description = "Docker image name"
-}
-
-variable "image_registry_username" {
-  type        = string
-  description = "Docker registry username"
-}
-
-variable "image_registry_password" {
-  type        = string
+variable "redis" {
+  type = object({
+    hostname   = string
+    port       = number
+    access_key = string
+  })
   sensitive   = true
-  description = "Docker registry password"
+  description = "Redis details"
 }
-
-variable "redis_hostname" {
-  type        = string
-  description = "Redis hostname"
-}
-
-variable "redis_port" {
-  type        = number
-  description = "Redis port"
-}
-  
-variable "redis_access_key" {
-  type        = string
-  description = "Redis access key"
-}
-  
