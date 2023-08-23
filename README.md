@@ -5,7 +5,7 @@
 [![Deploying infrastructure](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_infra.yml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_infra.yml) [![Destroying Infrastructure](https://github.com/paukstelom/IBMassignment/actions/workflows/destroy_infra.yml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/paukstelom/IBMassignment/actions/workflows/destroy_infra.yml) [![Update Image](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_app.yml/badge.svg?branch=deploy_app&event=push)](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_app.yml)
 
 
-IBM project is my solution to a technical assignment provided to me in the second stage of the recruitment process to IBM. This assignment required me to deploy a web page which would show how many unique visitors has visisted the page.
+IBM project is my solution to a technical assignment provided to me in the second stage of the recruitment process to IBM. This assignment required me to deploy a web page which would show how many unique visitors have visited the page.
 
 ## Built with
 
