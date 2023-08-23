@@ -63,28 +63,28 @@ jobs:
           tags: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
           file: ./my-app/Dockerfile
 
-  # state:
-  #   name: Deploying remote state
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash
+  state:
+    name: Deploying remote state
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Login to Azure
-  #       uses: azure/login@v1
-  #       with:
-  #         creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
 
-  #     - name: Create storage account using bash script from repo 
-  #       run: |
-  #         bash remote_state_init.sh \
-  #         ${{ env.RESROUCES_PREFIX }} \
-  #         ${{ env.RESOURCES_LOCATION }} \
-  #         ${{ env.STORAGE_ACCOUNT_NAME }} \
-  #         ${{ env.STORAGE_CONTAINER_NAME }} 
+      - name: Create storage account using bash script from repo 
+        run: |
+          bash remote_state_init.sh \
+          ${{ env.RESROUCES_PREFIX }} \
+          ${{ env.RESOURCES_LOCATION }} \
+          ${{ env.STORAGE_ACCOUNT_NAME }} \
+          ${{ env.STORAGE_CONTAINER_NAME }} 
 
   terraform:
     name: Deploying Infrastructure
