@@ -1,5 +1,9 @@
 
-# IBM project
+# IBM project 
+
+
+[![Deploying infrastructure](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_infra.yml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_infra.yml) [![Destroying Infrastructure](https://github.com/paukstelom/IBMassignment/actions/workflows/destroy_infra.yml/badge.svg?branch=main&event=workflow_dispatch)](https://github.com/paukstelom/IBMassignment/actions/workflows/destroy_infra.yml) [![Update Image](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_app.yml/badge.svg?branch=deploy_app&event=push)](https://github.com/paukstelom/IBMassignment/actions/workflows/deploy_app.yml)
+
 
 IBM project is my solution to a technical assignment provided to me in the second stage of the recruitment process to IBM. This assignment required me to deploy a web page which would show how many unique visitors has visisted the page.
 
@@ -10,12 +14,12 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 # IMPORTANT!
 
-### Azure Redis Cache resource can take 20-40 minutes to deploy. In addition to that the, image can also take some time to be pulled into the webapp. Please be patient and refresh the website a couple of times to see the app.
+#### Azure Redis Cache resource can take 20-40 minutes to deploy. In addition to that the, image can also take some time to be pulled into the webapp. Please be patient and refresh the website a couple of times to see the app.
 
 
 ## Solution and architecture
 
-### My solution was to deploy the app to Azure Cloud using Github Actions
+#### My solution was to deploy the app to Azure Cloud using Github Actions
 
 <center>
 <img src="./docs/architecture.png" width="75%">
@@ -47,7 +51,7 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 ## Redis
 
-### Redis is used to store the unique visitors value. The Redis is deployed as a Azure Cache for Redis service in a seperate resource.
+#### Redis is used to store the unique visitors value. The Redis is deployed as a Azure Cache for Redis service in a seperate resource.
 
 ### The connection is configured through terraform:
 
