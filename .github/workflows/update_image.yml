@@ -19,7 +19,7 @@ jobs:
     name: Building and pushing container image
     runs-on: ubuntu-latest
     defaults:
-    run:
+      run:
         working-directory: ./my-app
     outputs:
       image_name: ${{ steps.image_name.outputs.image_name }}
@@ -81,4 +81,4 @@ jobs:
         with:
           app-name: ${{ env.RESROUCES_PREFIX }}-WEBAPP
           publish-profile: ${{ env.PUBLISH_PROFILE }}
-          images: ${{ env.IMAGE_REGISTRY }}/${{ steps.image_name.outputs.IMAGE_NAME }}
+          images: ${{ env.IMAGE_REGISTRY }}/${{ needs.build.outputs.image_name }}
