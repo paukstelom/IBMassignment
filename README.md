@@ -7,6 +7,12 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 ![Azure] ![Terraform] ![Actions] ![Git] ![Docker] ![Bash] ![Redis] ![Next.js] ![Github]
 
+
+# IMPORTANT!
+
+### Azure Redis Cache resource can take 20-40 minutes to deploy. In addition to that the, image can also take some time to be pulled into the webapp. Please be patient and refresh the website a couple of times to see the app.
+
+
 ## Solution and architecture
 
 ### My solution was to deploy the app to Azure Cloud using Github Actions
@@ -17,27 +23,27 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 ### The repo includes 3 different pipelines
 
-* DEPLOY_INFRASTRUCTURE (.github/workflows/deploy_infra.yml) - triggered manually or by pushing into "deploy_infra" branch. This pipeline build and pushes the image into image registry, deploys backend state for terraform and deploys the infrastructure with the app.
+* DEPLOY_INFRASTRUCTURE (.github/workflows/deploy_infra.yml) - This pipeline builds and pushes the image into image registry, deploys backend state for terraform if not found and deploys the infrastructure with the app.
 
-* DEPLOY_APP (.github/workflows/deploy_app.yml) - triggered manually or by pushing into "deploy_app" branch. This pipeline assumes that the infrastructure is already deployed and when app changes are pushed into the repo, it builds and pushes the image into image registry and deploys the app into the existing infrastructure.
+* DEPLOY_APP (.github/workflows/deploy_app.yml) -This pipeline assumes that the infrastructure is already deployed. When app changes are pushed into the "deploy_app" branch, the pipeline builds the image, pushes it into the registry and deploys the app into the existing infrastructure.
 
-* DESTROY_INFRASTRUCTURE (.github/workflows/destroy_infra.yml) - triggered manually. This pipeline destroys the infrastructure and backend state for terraform.
+* DESTROY_INFRASTRUCTURE (.github/workflows/destroy_infra.yml) - This pipeline destroys the infrastructure and backend state if specified in input.
 
 ## Web App
 
 ### The web app is a simple Next.js app which stores the unique visitors value in Redis.
 
-<img src="./docs/main_screen.png" width="75%">
+<img src="./docs/main_screen.png" width="80%">
 
 ### Features
 
 * Image tag - displays the current version/tag of the image. This tag injected during Dockerfile build and is taken from ./my-app/VERSION file. By incremeting this tag in VERSION file and pushing it to repo it is easy to test if the pipeline has sucessfully deployed the new version of the app.
   
-  <img src="./docs/tag.png" width="15%">
+  <img src="./docs/tag.png" width="20%">
 
 * Unique visitors - displays the number of unique visitors. This value is stored in Redis and is incremented every time a new user visits the page.
 
-  <img src="./docs/visitors.png" width="20%">
+  <img src="./docs/visitors.png" width="25%">
 
 ## Redis
 
@@ -78,17 +84,33 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 ### Using this repo
 
-asdasd
+This repo was made in a way that you can deploy the app without any additional modifications. \
+To do so:
+
+* Go to Actions
+
+<img src="./docs/workflow1.png" width="60%"><br>
+
+* Select the workflow you want to run. (Use "Deploy infrastructure" first to deploy infra) 
+  
+<img src="./docs/workflow2.png" width="20%"><br>
+
+* Click "Run workflow" and fill in the variables if needed.
+
+<img src="./docs/workflow3.png" width="30%">
+
+The app will deploy and you will be able to access it through the link provided in the terraform output.
+Or you can go straight to https://ibm-project-webapp.azurewebsites.net
 
 ### Forking repo
 
-asdasd
+This repo is configured to deploy the app to my Azure account. If you want to test it yourself, you can fork the repo and add the needed secrets (see below).
 
 ## Secrets
 
 If you want to fork the repo and use the pipelines yourself, you will have to add these secrets:
 
-<img src="./docs/secrets.png" width="75%">
+<img src="./docs/secrets.png" width="75%"><br>
 
 * AZURE_CLIENT_ID - for Azure access
 
@@ -99,6 +121,7 @@ If you want to fork the repo and use the pipelines yourself, you will have to ad
 * AZURE_TENANT_ID - for Azure access
 
 * IBM_REPO_TOKEN - token for your ghcr.io image repository with read and write permissions
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -112,3 +135,6 @@ If you want to fork the repo and use the pipelines yourself, you will have to ad
 [Bash]: https://img.shields.io/badge/GNU%20Bash-4EAA25?style=for-the-badge&logo=GNU%20Bash&logoColor=white
 [Docker]: https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white
 [Redis]: https://img.shields.io/badge/redis-CC0000.svg?&style=for-the-badge&logo=redis&logoColor=white
+
+
+
