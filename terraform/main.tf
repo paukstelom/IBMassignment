@@ -2,22 +2,39 @@ resource "azurerm_resource_group" "main" {
   name     = "${var.prefix}-RG"
   location = var.location
   tags     = var.tags
-
 }
 
-resource "azurerm_service_plan" "main" {
-  name                = "example"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
-  os_type             = "Linux"
-  sku_name            = "P1v2"
+module "web_app" {
+  source = "./modules/web_app"
+
+  prefix = var.prefix
+  resource_group = {
+    name     = azurerm_resource_group.main.name
+    location = azurerm_resource_group.main.location
+  }
+
+  redis = module.redis_cache.redis
+  registry = {
+    image_name = var.image_name
+    url        = var.image_registry_url
+    username   = var.image_registry_username
+    password   = var.image_registry_password
+  }
+
+  depends_on = [azurerm_resource_group.main, module.redis_cache]
+  tags       = var.tags
 }
 
-resource "azurerm_linux_web_app" "main" {
-  name                = "example"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_service_plan.main.location
-  service_plan_id     = azurerm_service_plan.main.id
+module "redis_cache" {
+  source = "./modules/redis_cache"
 
-  site_config {}
+  prefix = var.prefix
+  resource_group = {
+    name     = azurerm_resource_group.main.name
+    location = azurerm_resource_group.main.location
+  }
+
+  depends_on = [azurerm_resource_group.main]
+  tags       = var.tags
 }
+

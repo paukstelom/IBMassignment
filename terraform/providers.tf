@@ -6,7 +6,11 @@ terraform {
     }
   }
   required_version = ">= 1.5.4"
+  backend "azurerm" {
+    key = "terraform.tfstate"
+  }
 }
 provider "azurerm" {
   features {}
+  skip_provider_registration = true
 }
