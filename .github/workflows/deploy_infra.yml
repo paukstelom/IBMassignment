@@ -78,6 +78,9 @@ jobs:
       - name: Check if remote state is already deployed
         run: echo "STATE_NOT_DEPLOYED=$(az storage account check-name --name ${{ env.STORAGE_ACCOUNT_NAME }} --query nameAvailable)" >>${GITHUB_ENV}
 
+      - name: Echo STATE_NOT_DEPLOYED
+        run: echo ${{ env.STATE_NOT_DEPLOYED }}}
+
       - name: Create storage account using bash script from repo
         if: ${{ env.STATE_NOT_DEPLOYED }} == "true"
         run: |
