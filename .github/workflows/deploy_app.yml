@@ -1,4 +1,4 @@
-name: Build and update the container an Azure Web App
+name: Update Image
 env:
   AZURE_WEBAPP_NAME: "ibm-webapp"
   IMAGE_REGISTRY: "ghcr.io"
