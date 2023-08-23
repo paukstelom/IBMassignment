@@ -14,7 +14,7 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 # IMPORTANT!
 
-#### Azure Redis Cache resource can take 20-40 minutes to deploy. In addition to that the, image can also take some time to be pulled into the webapp. Please be patient and refresh the website a couple of times to see the app.
+#### Azure Redis Cache resource can take 15-40 minutes to deploy, please give the pipeline up to 40 minutes to deploy. If terraform apply step is running, means its working. In addition to that, the image can take some time to be pulled into the Azure App Service. If website does not load, refresh couple of times to see the app.
 
 
 ## Solution and architecture
