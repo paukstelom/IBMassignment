@@ -12,6 +12,8 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 #### Azure Redis Cache resource can take 15-40 minutes to deploy, please give the pipeline up to 40 minutes to deploy. If terraform apply step is running, means its working. In addition to that, the image can take some time to be pulled into the Azure App Service. If website does not load, refresh couple of times to see the app
 
+#### It is important to note that this pipeline also deploys remote state for terraform. This state is stored in storage accounts and storage containters which need to have unique global names. I have generated a random  string variable for these names in deploy_infra.yml. If you want to deploy multiple instances of this infrastrucutre then you need to change these values.  
+
 ## Solution and architecture
 
 My solution was to deploy the app to Azure Cloud using Github Actions
