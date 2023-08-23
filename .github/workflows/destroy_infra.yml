@@ -1,12 +1,12 @@
 name: Deploying Infrastructure
 
 env:
-  RESROUCES_PREFIX: "IBM-PROJET"
+  RESROUCES_PREFIX: "IBM-PROJECT"
 
 
 on:
   push:
-    branches: [ "test" ]
+    branches: [ "destroy_infra" ]
   workflow_dispatch:
 
 jobs:
