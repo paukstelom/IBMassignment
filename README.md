@@ -25,13 +25,37 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 ## Web App
 
-The web app is a simple Next.js app which stores the unique visitors value in Redis.
+### The web app is a simple Next.js app which stores the unique visitors value in Redis.
 
+<img src="./docs/main_screen.png" width="75%">
 
+### Features
+
+* Image tag - displays the current version/tag of the image. This tag injected during Dockerfile build and is taken from ./my-app/VERSION file. By incremeting this tag in VERSION file and pushing it to repo it is easy to test if the pipeline has sucessfully deployed the new version of the app.
+  
+  <img src="./docs/tag.png" width="15%">
+
+* Unique visitors - displays the number of unique visitors. This value is stored in Redis and is incremented every time a new user visits the page.
+
+  <img src="./docs/visitors.png" width="20%">
+
+## Redis
+
+### Redis is used to store the unique visitors value. The Redis is deployed as a Azure Cache for Redis service in a seperate resource.
+
+### The connection is configured through terraform:
+
+* Terraform passess variables to the Azure App Service instace which injects them to the environment.
+
+  <img src="./docs/redis1.png" width="50%">
+
+* Server-side code pulls these variables from the environment and connects to the Redis.
+
+  <img src="./docs/redis2.png" width="50%">
 
 ## Terraform
 
-The terraform 
+### Terraform code is split into 2 modules: redis_cache and web_app.
 
 ```bash
 ├── main.tf
@@ -49,7 +73,16 @@ The terraform
 ├── terraform.tfvars
 └── variables.tf
 ```
+
 ## Getting started
+
+### Using this repo
+
+asdasd
+
+### Forking repo
+
+asdasd
 
 ## Secrets
 

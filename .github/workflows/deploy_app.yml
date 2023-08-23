@@ -1,13 +1,10 @@
 name: Build and update the container an Azure Web App
-
 env:
   AZURE_WEBAPP_NAME: "ibm-webapp"
   IMAGE_REGISTRY: "ghcr.io"
   RESROUCES_PREFIX: "IBM-PROJECT"
 
 on:
-  push:
-    branches: [ "deploy_image" ]
   workflow_dispatch:
 
 permissions:

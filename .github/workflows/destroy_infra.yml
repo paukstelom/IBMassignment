@@ -1,12 +1,8 @@
-name: Deploying Infrastructure
-
+name: Destroying Infrastructure
 env:
   RESROUCES_PREFIX: "IBM-PROJECT"
 
-
 on:
-  push:
-    branches: [ "destroy_infra" ]
   workflow_dispatch:
 
 jobs:

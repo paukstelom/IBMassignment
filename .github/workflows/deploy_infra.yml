@@ -1,5 +1,4 @@
 name: Deploying infrastructure
-
 env:
   AZURE_WEBAPP_NAME: "ibm-webapp"
   IMAGE_REGISTRY: "ghcr.io"
@@ -9,8 +8,6 @@ env:
   STORAGE_CONTAINER_NAME: "ibmstoragecontainer71" 
 
 on:
-  push:
-    branches: [ "test" ]
   workflow_dispatch:
 
 permissions:
