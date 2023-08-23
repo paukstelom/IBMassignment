@@ -19,7 +19,7 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 ## Solution and architecture
 
-#### My solution was to deploy the app to Azure Cloud using Github Actions
+My solution was to deploy the app to Azure Cloud using Github Actions
 
 <center>
 <img src="./docs/architecture.png" width="75%">
@@ -35,7 +35,7 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 ## Web App
 
-### The web app is a simple Next.js app which stores the unique visitors value in Redis.
+The web app is a simple Next.js app which stores the unique visitors value in Redis.
 
 <img src="./docs/main_screen.png" width="80%">
 
@@ -51,7 +51,7 @@ IBM project is my solution to a technical assignment provided to me in the secon
 
 ## Redis
 
-#### Redis is used to store the unique visitors value. The Redis is deployed as a Azure Cache for Redis service in a seperate resource.
+Redis is used to store the unique visitors value. The Redis is deployed as a Azure Cache for Redis service in a seperate resource.
 
 ### The connection is configured through terraform:
 
@@ -84,12 +84,14 @@ IBM project is my solution to a technical assignment provided to me in the secon
 └── variables.tf
 ```
 
-## Getting started
+# Getting started
 
-### Using this repo
+There are 2 ways to use this repo: you can test the deployment here using manual workflow dispatch or you can fork the repo and use the pipelines yourself with your own secrets.
+
+## Using this repo
 
 This repo was made in a way that you can deploy the app without any additional modifications. \
-To do so:
+The infrastructure is deployed on my personal Azure account. To do so:
 
 * Go to Actions
 
@@ -106,9 +108,11 @@ To do so:
 The app will deploy and you will be able to access it through the link provided in the terraform output.
 Or you can go straight to https://ibm-project-webapp.azurewebsites.net
 
-### Forking repo
 
-This repo is configured to deploy the app to my Azure account. If you want to test it yourself, you can fork the repo and add the needed secrets (see below).
+
+## Forking repo
+
+This repo is configured to deploy the app to my Azure account. If you want to test it yourself, you can fork the repo and add the needed secrets (see below). Other that that, there are no additional changes needed.
 
 ## Secrets
 
